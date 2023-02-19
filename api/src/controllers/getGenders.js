@@ -13,20 +13,20 @@ const getGenders = async () => {
             const apiGenres = response.data.results.map(gen => gen.name)
 
             for (const genre of apiGenres) {
-                await Genre.create({ name: genre }) // creo cada genero
+                await Genre.findOrCreate({ //creo los generos en la db
+                    where: { name: genre }
+                })
             }
-            
+
             return apiGenres
 
         } else { // en caso de tenerlos en la DB, los retorno y listo.
             return dbGenres
         }
     } catch (error) {
-        throw new Error("Cannot get genders")
+        throw new Error("Genero no encontrado")
     }
 }
 
 
-module.exports = {
-    getGenders
-}
+module.exports = getGenders

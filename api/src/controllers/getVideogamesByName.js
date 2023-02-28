@@ -1,40 +1,62 @@
-require('dotenv').config();
-const axios = require("axios");
-const { Videogame } = require("../db")
-const { API_KEY } = process.env;
+require('dotenv').config()
+const axios = require('axios')
+const { Op } = require('sequelize')
+const { Videogame, Genre } = require('../db')
+const { API_KEY } = process.env
 
-const getApiVideogamesByName = async function (name) {
-    const apiVideogames = (await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`))
-        .data
-        .results
-        .map(game => (
-            {
-                id: game.id,
-                name: game.name,
-                released: game.released,
-                image: game.background_image,
-                rating: game.rating,
-                platforms: game.platforms?.map(el => el.platform.name),
-                genres: game.genres?.map(el => el.name)
-            }))
-    return apiVideogames
+const getApiVideogamesByName = async (name) => {
+  const apiVideogames = (await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`))
+    .data
+    .results
+    .map(game => (
+      {
+        id: game.id,
+        name: game.name,
+        released: game.released,
+        image: game.background_image,
+        rating: game.rating,
+        platforms: game.platforms.map(el => el.platform.name),
+        genres: game.genres.map(el => el.name)
+      }))
+  return apiVideogames
 }
 
-const getDBVideogamesByName = async (name) => { //
-    const response = await Videogame.findAll()
-    return response
-        .filter(game => game.name.toLowerCase().includes(name.toLowerCase()))
+const getDBVideogamesByName = async (name) => {
+  const dbVideoGames = await Videogame.findAll({
+    where: {
+      name: { [Op.iLike]: `%${name}%` }
+    },
+    include: {
+      model: Genre,
+      attributes: ['name'],
+      through: {
+        attributes: []
+      }
+    }
+  })
 
+  if (dbVideoGames.length === 0) throw Error('No se encontraron juegos con ese nombre')
+
+  return dbVideoGames.map(game => (
+    {
+      id: game.id,
+      name: game.name,
+      // description: game.description,
+      image: game.image,
+      platforms: game.platforms,
+      rating: game.rating,
+      released: game.released,
+      genres: game.genres.map(genre => genre.name)
+    }
+  ))
 }
-
 
 const getVideogamesByName = async (name) => {
-    const apiVideogames = await getApiVideogamesByName(name) // traigo los juegos de la api por nombre
-    const dbVideogames = await getDBVideogamesByName(name) // traigo los juegos de la DB por nombre
-    return dbVideogames
-        .concat(apiVideogames) // concateno dejando primero los de la DB
-        .slice(0, 15) // me quedo con los primeros 15
-}  
+  const apiVideogames = await getApiVideogamesByName(name)
+  const dbVideogames = await getDBVideogamesByName(name)
+  return dbVideogames
+    .concat(apiVideogames)
+    .slice(0, 15)
+}
 
 module.exports = getVideogamesByName
-

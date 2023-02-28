@@ -1,0 +1,22 @@
+.containerNav{
+    display: flex;
+    justify-content: center;
+    height: 4.5rem;
+    background-color: #2362e99b;
+}
+
+.btn{
+    display: flex;
+    margin-right: 5rem;
+    align-items: center;
+    gap: 3rem;
+}
+
+.menu{
+    display: flex;
+    margin-right: 5rem;
+    align-items: center;
+    gap: 3rem; 
+    
+}
+

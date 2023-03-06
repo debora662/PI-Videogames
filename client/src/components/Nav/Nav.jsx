@@ -8,7 +8,6 @@ export default function Nav () {
   const location = useLocation().pathname
   const dispatch = useDispatch()
   const allGenres = useSelector(state => state.genres)
-  console.log(location)
 
   const handleFilteredGenres = (event) => {
     event.preventDefault()
@@ -25,17 +24,23 @@ export default function Nav () {
     dispatch(filterByOrigin(event.target.value))
   }
 
+  if (location === '/') return null
+
   return (
     <div className={styles.containerNav}>
-
-      <Link to='/home'>
-        <button className={styles.btn}>Home</button>
-      </Link>
 
       {location !== '/newVideogame'
         ? (
           <Link to='/newVideogame'>
-            <button className={styles.btn}>Create Videogame</button>
+            <button id={styles.btn}>Create Videogame</button>
+          </Link>
+          )
+        : null}
+
+      {location !== '/home'
+        ? (
+          <Link to='/home'>
+            <button id={styles.btn2}>Home</button>
           </Link>
           )
         : null}
@@ -45,7 +50,7 @@ export default function Nav () {
           <>
             <SearchBar />
             <div>
-              <select className={styles.menu} onChange={handleFilteredGenres}>
+              <select className={styles.btns} onChange={handleFilteredGenres}>
                 <option value='All'>All</option>
                 {allGenres.map(genre => (
                   <option key={genre.id} value={genre.name}>
@@ -55,7 +60,7 @@ export default function Nav () {
               </select>
             </div>
             <div>
-              <select className={styles.menu} onChange={handleByOrigin}>
+              <select className={styles.btns} onChange={handleByOrigin}>
                 <option>Origin</option>
                 <option value='All'>All</option>
                 <option value='Created'>Created</option>
@@ -63,7 +68,7 @@ export default function Nav () {
               </select>
             </div>
             <div>
-              <select onChange={handleOrder}>
+              <select onChange={handleOrder} className={styles.btns}>
                 <option>Order by...</option>
                 <option value='AZ'>A-Z</option>
                 <option value='ZA'>Z-A</option>

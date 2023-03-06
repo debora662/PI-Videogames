@@ -24,7 +24,7 @@ server.use((req, res, next) => {
   next()
 })
 
-server.use('/', routes) // aca el middleware va a redirigir todas las request a '/' a un archivo "routes" (index.js)
+server.use('/', routes)
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

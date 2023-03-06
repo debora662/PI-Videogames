@@ -25,19 +25,18 @@ export default function LandingPage () {
   }, [dispatch])
 
   return (
-
-    <div className={styles.contenedor}>
-
-      <h1>Bienvenidos a mi aplicación</h1>
-
-      {isLoading ? <Loading /> : null}
-      {loaded
-        ? (
-          <Link to='/home'>
-            <button>ACCESS</button>
-          </Link>
-          )
-        : null}
+    <div className={styles.containerLanding}>
+      <div>
+        <h1>Bienvenidos a mi aplicación</h1>
+        {isLoading ? <Loading /> : null}
+        {loaded
+          ? (
+            <Link to='/home'>
+              <button id={styles.button}>Access</button>
+            </Link>
+            )
+          : null}
+      </div>
     </div>
   )
 }

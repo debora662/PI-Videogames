@@ -15,7 +15,7 @@ const createNewVideogame = async ({ name, description, image, genres, rating, pl
 
     createdGame.addGenre(newGameGenre)
 
-    return createdGame
+    return 'Videogame created successfully'
   } catch (error) {
     throw new Error(error)
   }

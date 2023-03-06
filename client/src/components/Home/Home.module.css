@@ -1,12 +1,13 @@
-.container{
+#background {
+    background-color: black;
+}
+
+#cards {
     justify-content: space-around;
-    padding: 1rem;
-    border-radius: 1rem;
-    gap: 1rem;
-    margin: 1rem;
-    display:grid;
+    padding: 30px;
+    display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: .5rem;
+    grid-column-gap: 1rem;
     grid-row-gap: 2rem;
     justify-items: center;
 }

@@ -23,7 +23,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         videogamesToShow: payload,
-        allVideogames: payload // uso de soporte (allVideogames)
+        allVideogames: payload 
       }
     case GET_VIDEOGAME_NAME:
       return {

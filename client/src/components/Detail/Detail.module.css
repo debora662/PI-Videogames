@@ -1,0 +1,50 @@
+
+#containerDetail {
+  background-image: url('../../assets/fondo1.jpg');
+  background-size: cover;
+  border-radius: 7px;
+  height: auto;
+  width: 1150px;
+  padding: 1px;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;  
+  animation: parpadeo 5s infinite;
+}
+
+@keyframes parpadeo {
+  0% {
+    box-shadow: 0 0 10px 0 #feffff inset, 0 0 10px 4px #feffff; 
+  }
+  50% {
+    box-shadow: 0 0 10px 0 #070707 inset, 0 0 10px 4px #070707;  
+  }
+  100% {
+    box-shadow: 0 0 10px 0 #feffff inset, 0 0 10px 4px #feffff;  
+  }
+}
+
+#imgDiv {
+  width: 400px;
+  height: 300px;
+  margin-right: 750px;
+
+}
+
+#group {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin-top: -315px;
+  width: 700px;
+  position: absolute;
+  right: 110px;
+  text-align: justify;
+}
+
+#description {
+    text-align: justify;
+}

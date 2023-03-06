@@ -1,4 +1,87 @@
-ul {
-  list-style: none;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+
+#containerBoxes {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: baseline;
+  background-color: white;
+  width: 500px;
+  height: auto;
+  border-radius: 5px;
 }
 
+#container {
+  margin: -10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+#inputs {
+  border: #0fe7f7 1px solid;
+  margin-left: 30px;
+  width: 200px;
+  height: 20px;
+}
+
+#inputs1 {
+  border: #0fe7f7 1px solid;
+  margin-left: 30px;
+  width: 200px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+#description {
+  border: #0fe7f7 1px solid;
+  width: 300px;
+  height: 70px;
+  resize: none
+}
+
+#dates {
+  border: #0fe7f7 1px solid;
+  width: 110px;
+}
+
+.btn {
+  width: 150px;
+  height: 38px;
+  color: #0f0000;
+  border-color: #0fe7f7;
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+  border-radius: 5px 5px 5px 5px;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 1px 0px 0px black;
+  color: #0f0000;
+  cursor: pointer;
+}
+
+.genre {
+  border: #0fe7f7 1px solid;
+}
+
+.platform {
+  border: #0fe7f7 1px solid;
+  }
+
+
+#Container {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  padding: 4px;
+}
+
+
+#Container1 {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  padding: 4px;
+  margin: auto;
+}

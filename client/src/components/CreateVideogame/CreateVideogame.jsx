@@ -1,16 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { postVideogame, getPlatforms } from '../../redux/actions/actions'
-import styles from './CreateVideogame.module.css'
+import { postVideogame, getPlatforms, getGenres } from '../../redux/actions/actions'
 import { validate } from './validate'
 import { useNavigate } from 'react-router-dom'
+import styles from './CreateVideogame.module.css'
 
 export default function CreateVideogame () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const allGenres = useSelector(state => state.genres)
   const platformsApi = useSelector(state => state.platforms)
-
+  const genres = useSelector(state => state.genres)
   const [errors, setErrors] = useState({})
 
   const [videogame, setVideogame] = useState({
@@ -23,6 +23,10 @@ export default function CreateVideogame () {
     released: ''
   })
 
+  useEffect(() => {
+    if (genres.length === 0) dispatch(getGenres())
+  }, [dispatch, genres.length])
+
   const handleChange = (event) => {
     setVideogame({
       ...videogame,
@@ -34,6 +38,10 @@ export default function CreateVideogame () {
     }))
   }
 
+  useEffect(() => {
+    dispatch(getPlatforms())
+  }, [dispatch])
+
   const handleSelectGenre = (event) => {
     const checkGenres = videogame.genres
     if (!checkGenres.includes(event.target.value)) {
@@ -42,6 +50,17 @@ export default function CreateVideogame () {
     setVideogame({
       ...videogame,
       genres: checkGenres
+    })
+    setErrors(validate({
+      ...videogame,
+      [event.target.name]: event.target.value
+    }))
+  }
+
+  const handleDeleteGenres = (event) => {
+    setVideogame({
+      ...videogame,
+      genres: videogame.genres.filter(gen => gen !== event)
     })
   }
 
@@ -54,116 +73,101 @@ export default function CreateVideogame () {
       ...videogame,
       platforms: checkPlatforms
     })
+    setErrors(validate({
+      ...videogame,
+      [event.target.name]: event.target.value
+    }))
+  }
+
+  const handleDeletePlatform = (event) => {
+    setVideogame({
+      ...videogame,
+      platforms: videogame.platforms.filter(plat => plat !== event)
+    })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
-    setErrors(
-      validate({
-        ...videogame,
-        [event.target.name]: event.target.value
+    dispatch(postVideogame(videogame))
+      .then(response => {
+        window.alert(response)
       })
-    )
-    if (Object.keys(errors).length === 0) {
-      dispatch(postVideogame(videogame))
-      alert('Videogame Created')
-
-      setVideogame({
-        name: '',
-        image: '',
-        description: '',
-        released: '',
-        rating: '',
-        genres: [],
-        platforms: []
-      })
-    } else {
-      alert('Debe llenar todos los campos')
-    }
-    navigate.push('/home')
+      .catch(error => window.alert(error.message))
+    navigate('/home')
   }
 
-  useEffect(() => {
-    dispatch(getPlatforms())
-  }, [dispatch])
-
   return (
-    <div>
-      <div className={styles.CreateVideogame}>
-        <h1>Create your video game</h1>
-        <form onSubmit={handleSubmit}>
+    <div id={styles.container}>
+      <h1>Create your video game</h1>
 
-          <div>
-            <label>Name: </label>
-            <input type='text' name='name' value={videogame.name} onChange={handleChange} />
-            {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
-          </div>
+      <form onSubmit={handleSubmit}>
+        <div id={styles.containerBoxes}>
+          <label>Name: </label>
+          <input id={styles.inputs} type='text' name='name' value={videogame.name} onChange={handleChange} />
+          {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
 
-          <div>
-            <label>Description: </label>
-            <textarea type='text' name='description' value={videogame.description} onChange={handleChange} />
-            {errors.description && <p style={{ color: 'red' }}>{errors.description}</p>}
-          </div>
+          <label>Description: </label>
+          <textarea id={styles.description} type='text' name='description' value={videogame.description} onChange={handleChange} />
+          {errors.description && <p style={{ color: 'red' }}>{errors.description}</p>}
 
-          <div>
-            <label>Image: </label>
-            <input type='text' name='image' value={videogame.image} onChange={handleChange} />
-            {errors.image && <p style={{ color: 'red' }}>{errors.image}</p>}
-          </div>
+          <label>Image: </label>
+          <input id={styles.inputs} type='text' name='image' value={videogame.image} onChange={handleChange} />
+          {errors.image && <p style={{ color: 'red' }}>{errors.image}</p>}
 
-          <div>
-            <label>Relesead: </label>
-            <input type='date' name='released' value={videogame.released} onChange={handleChange} />
-          </div>
+          <label>Relesead: </label>
+          <input id={styles.dates} type='date' name='released' value={videogame.released} onChange={handleChange} />
+          {errors.released && <p style={{ color: 'red' }}>{errors.released}</p>}
 
-          <div>
-            <label>Rating: </label>
-            <input type='number' name='rating' value={videogame.rating} step={0.01} onChange={handleChange} />
-            {errors.rating && <p style={{ color: 'red' }}>{errors.rating}</p>}
-          </div>
+          <label>Rating: </label>
+          <input id={styles.inputs1} type='number' name='rating' value={videogame.rating} step={0.01} onChange={handleChange} />
+          {errors.rating && <p style={{ color: 'red' }}>{errors.rating}</p>}
 
-          <div>
-            <label>Genres: </label>
-            <select onChange={handleSelectGenre}>
-              <option>Choose one o more</option>
-              {allGenres?.map(genre => (
-                <option key={genre.id} value={genre.name}>
-                  {genre.name}
-                </option>
-              ))}
-              {errors.genres && <p style={{ color: 'red' }}>{errors.genres}</p>}
-            </select>
-            <ul>
-              {videogame.genres.map((gen) => (
-                <li key={gen}>{gen + ','}</li>
-              ))}
-            </ul>
-          </div>
+          <label htmlFor='genres'>Genres: </label>
+          <select className={styles.genre} id='genres' onChange={handleSelectGenre}>
+            <option>Choose one o more</option>
+            {allGenres?.map(genre => (
+              <option key={genre.id} value={genre.name}>
+                {genre.name}
+              </option>
+            ))}
+          </select>
+          {errors.genres && <p style={{ color: 'red' }}>{errors.genres}</p>}
 
-          <div>
-            <label>Platforms: </label>
-            <select onChange={handleSelectPlatforms}>
-              <option>Choose one o more</option>
-              {platformsApi.map(plat => (
-                <option key={plat.id}>
-                  {plat}
-                </option>
-              ))}
-            </select>
-            {errors.platforms && <p style={{ color: 'red' }}>{errors.platforms}</p>}
-            <ul>
-              {videogame.platforms.map((plat) => (
-                <li key={plat.id}>{plat + ','}</li>
-              ))}
-            </ul>
-          </div>
+          <ul>
+            {videogame.genres.map(gen =>
+              <div key={gen} id={styles.Container}>
+                <button className={styles.btn0} onClick={() => handleDeleteGenres(gen)}>X</button>
+                <li>{gen}</li>
+              </div>
+            )}
+          </ul>
 
-          <button type='submit'>Create Videogame</button>
+          <label htmlFor='platforms'>Platforms: </label>
+          <select className={styles.platform} id='platforms' onChange={handleSelectPlatforms}>
+            <option>Choose one o more</option>
+            {platformsApi.map(plat => (
+              <option key={plat}>
+                {plat}
+              </option>
+            ))}
+          </select>
+          {errors.platforms && <p style={{ color: 'red' }}>{errors.platforms}</p>}
 
-        </form>
+          <ul>
+            {videogame.platforms.map(plat =>
+              <div key={plat} id={styles.Container1}>
+                <button onClick={() => handleDeletePlatform(plat)}>X</button>
+                <li>{plat}</li>
+              </div>
+            )}
+          </ul>
 
-      </div>
+        </div>
+
+        <button className={styles.btn} type='submit' disabled={(Object.keys(errors).length > 0) || videogame.name === ''}>Create Videogame</button>
+
+      </form>
+
     </div>
   )
 }

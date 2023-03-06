@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Orbitron&family=Tilt+Neon&display=swap');
+
+.box{
+    border: 2px solid rgb(4, 112, 139);
+    border-radius: 5px;
+    padding: 4px;
+    width: 230px;
+    height: 350px;
+    background-image: url('../../assets/fondos.jpg');
+    
+}
+
+.box:hover {
+    box-shadow: 1px 1px 23px 3px rgb(1, 238, 255);
+    border: 2px solid rgb(4, 215, 252);
+    
+}
+
+.imagen{
+    margin-top: 10px;
+    width: 200px;
+    height: 200px;
+}
+
+.imagen:hover{
+    cursor:pointer;
+  }
+
+h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #0fe7f7;
+    text-decoration-line: none;
+}
+
+h4 {
+    font-family: 'Orbitron', sans-serif;
+    color: #0fe7f7; 
+}
+
+a{
+    text-decoration: none;
+}

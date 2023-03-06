@@ -17,10 +17,6 @@ export function validate (videogame) {
     errors.description = '30 characters minimum please'
   }
 
-  if (!videogame.image) {
-    errors.image = 'Insert a URL, please'
-  }
-
   if (!imgRegex.test(videogame.image)) {
     errors.image = 'Please insert a valid image URL'
   }
@@ -29,12 +25,17 @@ export function validate (videogame) {
     errors.rating = 'Choose a number between 1 and 5 '
   }
 
-  if (!videogame.genres.length) {
+  if (videogame.released.length === 0) {
+    errors.released = 'Choose a date'
+  }
+
+  if (videogame.genres.length === 0) {
     errors.genres = 'Select a genre, please'
   }
 
-  if (!videogame.platforms.length) {
+  if (videogame.platforms.length === 0) {
     errors.platforms = 'Select a platform, please'
   }
+
   return errors
 }

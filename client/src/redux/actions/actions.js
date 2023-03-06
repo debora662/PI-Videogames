@@ -114,7 +114,7 @@ export function postVideogame (obj) {
   return async function (dispatch) {
     try {
       const response = await axios.post('http://localhost:3001/videogames', obj)
-      return response
+      return response.data
     } catch (error) {
       throw Error(error)
     }

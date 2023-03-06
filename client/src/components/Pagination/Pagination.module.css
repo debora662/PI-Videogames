@@ -1,0 +1,13 @@
+.botons{
+    width: 45px; 
+    padding: 2.5px;
+    margin-top: 20px;
+    background-color: rgb(180, 247, 252);
+    border-radius: 30px;
+}
+
+.botons:hover{
+    background-color: rgb(250, 253, 253);   
+    border: 2px ridge rgb(4, 215, 252);
+    
+}

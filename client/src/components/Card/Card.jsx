@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styles from './Card.module.css'
 
 export default function Card ({ name, image, genres, id }) {
   const genre = genres?.map((gen) => gen)
 
   return (
-    <div>
+    <div className={styles.box}>
       <Link to={`/detail/${id}`}>
-        <img src={image} alt='img not found' width='200px' height='250px' />
+        <img className={styles.imagen} src={image} alt='img not found' />
+        <h3>{name}</h3>
+        <h4>{genre.join('-')}</h4>
       </Link>
-      <h3>{name}</h3>
-      <h4>{genre.join('-')}</h4>
     </div>
   )
 }

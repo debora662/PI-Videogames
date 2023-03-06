@@ -30,17 +30,17 @@ const getApiVideogames = async () => {
 
     return allVideogames
   } catch (error) {
-    throw new Error('No se pudieron obtener los juegos de la API')
+    throw new Error('Couldnt get the videogames from the API')
   }
 }
 
-const getDBVideogames = async () => { // fn para traer la info de la db
+const getDBVideogames = async () => {
   try {
-    let dbInfoGame = await Videogame.findAll({ // trae todo de videogame y el atributo (name) del modelo Genre que quiero que incluya esta llamada
+    let dbInfoGame = await Videogame.findAll({
       include: {
         model: Genre,
         attributes: ['name'],
-        through: { // comprueba de traer genre y name (mediante = through) atributos
+        through: {
           attributes: []
         }
       }
@@ -54,11 +54,11 @@ const getDBVideogames = async () => { // fn para traer la info de la db
       return videogame
     })
   } catch (error) {
-    throw new Error('No se pudieron obtener los juegos de la DB')
+    throw new Error('Couldnt get the videogames from the')
   }
 }
 
-const getAllVideogames = async () => { // está fn junta y trae la info tanto de la api como de la db
+const getAllVideogames = async () => {
   const apiVideogames = await getApiVideogames()
   const dbVideogames = await getDBVideogames()
   return dbVideogames.concat(apiVideogames)

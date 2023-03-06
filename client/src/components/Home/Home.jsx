@@ -13,9 +13,9 @@ export default function Home () {
   const [isLoading, setIsLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [videogamesPerPage] = useState(15)
-  const indexOfLastVideogame = currentPage * videogamesPerPage // pagina 1 * 15 = 15
-  const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage // 15 - 15 = 0
-  const currentVideogames = videogamesToShow.slice(indexOfFirstVideogame, indexOfLastVideogame) // de 0 a 14
+  const indexOfLastVideogame = currentPage * videogamesPerPage
+  const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage
+  const currentVideogames = videogamesToShow.slice(indexOfFirstVideogame, indexOfLastVideogame)
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -32,19 +32,21 @@ export default function Home () {
   }, [dispatch, videogamesToShow.length, genres.length], [pagination])
 
   return (
-    <div>
-      <Pagination
-        videogamesPerPage={videogamesPerPage}
-        videogamesToShow={videogamesToShow.length}
-        pagination={pagination}
-      />
+    <div id={styles.background}>
+      <div>
+        <Pagination
+          videogamesPerPage={videogamesPerPage}
+          videogamesToShow={videogamesToShow.length}
+          pagination={pagination}
+        />
+      </div>
 
       {isLoading
         ? (
           <Loading />
           )
         : (
-          <div className={styles.container}>
+          <div id={styles.cards}>
             {currentVideogames.map((game) => {
               return (
                 <Card

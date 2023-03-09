@@ -5,6 +5,8 @@ import Home from './components/Home/Home'
 import Detail from './components/Detail/Detail'
 import CreateVideogame from './components/CreateVideogame/CreateVideogame'
 import Nav from './components/Nav/Nav'
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3001/'
 
 function App () {
   return (

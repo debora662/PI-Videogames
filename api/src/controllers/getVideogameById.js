@@ -1,7 +1,7 @@
 const axios = require('axios')
 require('dotenv').config()
 const { API_KEY } = process.env
-const { Videogame } = require('../db')
+const { Videogame, Genre } = require('../db')
 
 const getVideogameById = async function (id) {
   if (id.length < 30) {
@@ -25,11 +25,26 @@ const getVideogameById = async function (id) {
     }
   } else {
     try {
-      const foundGameInDB = await Videogame.findByPk(id)
+      let foundGameInDB = await Videogame.findOne({
+        where: { id },
+        include: {
+          model: Genre,
+          attributes: ['name'],
+          through: {
+            attributes: []
+          }
+        }
+      });
 
-      if (!foundGameInDB) throw Error('Videogame not found')
+      if (!foundGameInDB) throw Error('Videogame not found');
 
-      return foundGameInDB
+      foundGameInDB = JSON.stringify(foundGameInDB);
+      foundGameInDB = JSON.parse(foundGameInDB);
+
+      foundGameInDB.genres = foundGameInDB.genres.map(g => g.name);
+
+      return foundGameInDB;
+      
     } catch (error) {
       throw Error(error)
     }

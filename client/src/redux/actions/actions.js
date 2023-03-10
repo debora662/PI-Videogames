@@ -4,7 +4,7 @@ import axios from 'axios'
 export function getVideogames () {
   return async (dispatch) => {
     try {
-      const response = await axios('http://localhost:3001/videogames')
+      const response = await axios('https://pi-videogames-production-10be.up.railway.app/')
 
       return dispatch({
         type: GET_VIDEOGAMES,

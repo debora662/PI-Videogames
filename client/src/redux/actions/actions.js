@@ -1,10 +1,11 @@
 import { GET_VIDEOGAMES, GET_GENRES, GET_DETAIL, GET_VIDEOGAME_NAME, GET_ORDER_BY_NAME, FILTERED_GENRES, GET_ORDER_BY_ORIGIN, GET_PLATFORMS } from './types'
 import axios from 'axios'
 
+
 export function getVideogames () {
   return async (dispatch) => {
     try {
-      const response = await axios('https://pi-videogames-production-10be.up.railway.app/videogames')
+      const response = await axios('/videogames')
 
       return dispatch({
         type: GET_VIDEOGAMES,

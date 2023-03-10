@@ -20,7 +20,7 @@ export function getVideogames () {
 export function getVideogameName (name) {
   return async (dispatch) => {
     try {
-      const response = await axios(`videogames?name=${name}`)
+      const response = await axios(`/videogames?name=${name}`)
 
       return dispatch({
         type: GET_VIDEOGAME_NAME,

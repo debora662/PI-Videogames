@@ -54,7 +54,7 @@ const getDBVideogames = async () => {
       return videogame
     })
   } catch (error) {
-    throw new Error('Couldnt get the videogames from the')
+    throw new Error('Couldnt get the videogames from the Db')
   }
 }
 

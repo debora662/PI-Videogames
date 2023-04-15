@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { postVideogame, getPlatforms, getGenres } from '../../redux/actions/actions'
+import { postVideogame, getPlatforms, getGenres, getVideogames } from '../../redux/actions/actions'
 import { validate } from './validate'
 import { useNavigate } from 'react-router-dom'
 import styles from './CreateVideogame.module.css'
@@ -88,8 +88,9 @@ export default function CreateVideogame () {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(postVideogame(videogame))
-      .then(response => {
+    dispatch(postVideogame(videogame))    
+    .then(response => {
+        dispatch(getVideogames())              
         window.alert(response)
       })
       .catch(error => window.alert(error.message))
@@ -98,20 +99,20 @@ export default function CreateVideogame () {
 
   return (
     <div id={styles.container}>
-      <h1>Create your video game</h1>
+      <h1>Create your videogame</h1>
 
       <form onSubmit={handleSubmit}>
         <div id={styles.containerBoxes}>
           <label>Name: </label>
-          <input id={styles.inputs} type='text' name='name' value={videogame.name} onChange={handleChange} />
+          <input id={styles.inputs} type='text' name='name' value={videogame.name} onChange={handleChange} placeholder='Enter a name' />
           {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
 
           <label>Description: </label>
-          <textarea id={styles.description} type='text' name='description' value={videogame.description} onChange={handleChange} />
+          <textarea id={styles.description} type='text' name='description' value={videogame.description} onChange={handleChange} placeholder='Write a description...' />
           {errors.description && <p style={{ color: 'red' }}>{errors.description}</p>}
 
           <label>Image: </label>
-          <input id={styles.inputs} type='text' name='image' value={videogame.image} onChange={handleChange} />
+          <input id={styles.inputs} type='text' name='image' value={videogame.image} onChange={handleChange} placeholder='Insert a image' />
           {errors.image && <p style={{ color: 'red' }}>{errors.image}</p>}
 
           <label>Relesead: </label>
@@ -119,9 +120,10 @@ export default function CreateVideogame () {
           {errors.released && <p style={{ color: 'red' }}>{errors.released}</p>}
 
           <label>Rating: </label>
-          <input id={styles.inputs1} type='number' name='rating' value={videogame.rating} step={0.01} onChange={handleChange} />
+          <input id={styles.inputs} type='number' name='rating' value={videogame.rating} step={0.01} onChange={handleChange} placeholder='Insert a rating'/>
           {errors.rating && <p style={{ color: 'red' }}>{errors.rating}</p>}
 
+          
           <label htmlFor='genres'>Genres: </label>
           <select className={styles.genre} id='genres' onChange={handleSelectGenre}>
             <option>Choose one o more</option>
@@ -141,6 +143,7 @@ export default function CreateVideogame () {
               </div>
             )}
           </ul>
+              
 
           <label htmlFor='platforms'>Platforms: </label>
           <select className={styles.platform} id='platforms' onChange={handleSelectPlatforms}>

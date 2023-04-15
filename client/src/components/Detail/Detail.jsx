@@ -1,11 +1,12 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDetail, clearDetail } from '../../redux/actions/actions'
+import { getDetail, clearDetail, deleteVideogame, getVideogames } from '../../redux/actions/actions'
 import styles from './Detail.module.css'
 import Loading from '../Loading/Loading'
 
-export default function Detail () {
+export default function Detail() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
   const detailVideogame = useSelector(state => state.detail)
@@ -18,6 +19,17 @@ export default function Detail () {
       dispatch(clearDetail())
     }
   }, [id, dispatch])
+
+
+  const handlerDelete = (id) => {
+    dispatch(deleteVideogame(id))
+      .then(() => {
+        dispatch(getVideogames())
+        window.alert('Videogame deleted successfully')
+        navigate('/home')
+      })
+
+  }
 
   return (
     <div>
@@ -48,9 +60,20 @@ export default function Detail () {
               </div>
             </div>
 
+            {typeof detailVideogame.id === 'string' && detailVideogame.id.includes('-') &&
+              <button className={styles.bntdelete} onClick={() => handlerDelete(id)}>Delete</button>
+            }
+
           </div>
-          )}
+        )}
 
     </div>
   )
 }
+
+
+
+
+
+
+

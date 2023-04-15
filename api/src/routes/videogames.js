@@ -3,6 +3,7 @@ const getAllVideogames = require('../controllers/getVideogames')
 const getVideogameById = require('../controllers/getVideogameById')
 const getVideogamesByName = require('../controllers/getVideogamesByName')
 const createNewVideogame = require('../controllers/createNewVideogame')
+const deleteVideogames = require('../controllers/deleteVideogames')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
@@ -38,7 +39,17 @@ router.post('/', async (req, res) => {
   const { name, description, image, genres, rating, platforms, released } = req.body
   try {
     const response = await createNewVideogame({ name, description, image, genres, rating, platforms, released })
-    res.json(response)
+    res.status(200).json(response)
+  } catch (error) {
+    res.status(400).send({ error: error.message })
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  const {id} = req.params
+  try {
+    const response = await deleteVideogames(id)
+    res.status(200).json(response)
   } catch (error) {
     res.status(400).send({ error: error.message })
   }

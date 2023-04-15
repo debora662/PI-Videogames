@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_GENRES, GET_DETAIL, GET_VIDEOGAME_NAME, GET_ORDER_BY_NAME, FILTERED_GENRES, GET_ORDER_BY_ORIGIN, GET_PLATFORMS } from './types'
+import { GET_VIDEOGAMES, GET_GENRES, GET_DETAIL, GET_VIDEOGAME_NAME, GET_ORDER_BY_NAME, FILTERED_GENRES, GET_ORDER_BY_ORIGIN, GET_PLATFORMS, DELETE_VIDEOGAME } from './types'
 import axios from 'axios'
 
 
@@ -115,6 +115,17 @@ export function postVideogame (obj) {
   return async function (dispatch) {
     try {
       const response = await axios.post('/videogames', obj)
+      return response.data
+    } catch (error) {
+      throw Error(error)
+    }
+  }
+}
+
+export function deleteVideogame (id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(`/videogames/${id}`)
       return response.data
     } catch (error) {
       throw Error(error)

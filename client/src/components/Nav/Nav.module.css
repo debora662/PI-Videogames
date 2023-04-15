@@ -74,10 +74,13 @@
     transition: all 150ms ease-in-out;
     outline: none;
     border-radius: 5px 5px 5px 5px;  
-    cursor: pointer;
+    cursor: pointer;        
 }
+
+
 
 #btn2:hover {
     box-shadow: 0 0 10px 0 #07f2fa inset, 0 0 10px 4px #07f2fa;
     background-color: #e6fcfd;
 }
+

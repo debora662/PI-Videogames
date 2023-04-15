@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
 #containerDetail {
   background-image: url('../../assets/fondo1.jpg');
@@ -10,19 +11,21 @@
   margin-top: 2rem;
   margin-bottom: 1rem;
   padding-left: 1.5rem;
-  padding-right: 1.5rem;  
+  padding-right: 1.5rem;
   animation: parpadeo 5s infinite;
 }
 
 @keyframes parpadeo {
   0% {
-    box-shadow: 0 0 10px 0 #feffff inset, 0 0 10px 4px #feffff; 
+    box-shadow: 0 0 10px 0 #feffff inset, 0 0 10px 4px #feffff;
   }
+
   50% {
-    box-shadow: 0 0 10px 0 #070707 inset, 0 0 10px 4px #070707;  
+    box-shadow: 0 0 10px 0 #070707 inset, 0 0 10px 4px #070707;
   }
+
   100% {
-    box-shadow: 0 0 10px 0 #feffff inset, 0 0 10px 4px #feffff;  
+    box-shadow: 0 0 10px 0 #feffff inset, 0 0 10px 4px #feffff;
   }
 }
 
@@ -40,11 +43,57 @@
   align-content: flex-start;
   margin-top: -315px;
   width: 700px;
-  position: absolute;
-  right: 110px;
+  position: relative;
+  left: 440px;
   text-align: justify;
+  
 }
 
 #description {
-    text-align: justify;
+  text-align: justify;
 }
+
+.bntdelete {
+  position: relative;
+  height: 30px;
+  width: 70px;
+  top: -420px;
+  left: 510px;
+  z-index: 1;
+  text-align: justify;
+  font-family: 'Orbitron', sans-serif;
+  color: black;
+  text-shadow: 1px 0px 0px black;
+  border-color: #f70f0f;
+  box-shadow: 0 0 10px 0 #f80303 inset, 0 0 10px 4px #f80303;
+  cursor: pointer;
+
+}
+
+.bntdelete:hover {
+  background-color: #f80303;
+} 
+
+@media only screen and (max-width: 768px) {
+  #group {
+    width: 100%;
+    left: 0;
+    margin-top: -20px;
+  }
+
+  .bntdelete {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #group {
+    width: 100%;
+    left: 0;
+    margin-top: -20px;
+    font-size: 14px;
+  }
+}
+

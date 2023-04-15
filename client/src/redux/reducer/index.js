@@ -6,7 +6,8 @@ import {
   GET_ORDER_BY_NAME,
   FILTERED_GENRES,
   GET_ORDER_BY_ORIGIN,
-  GET_PLATFORMS
+  GET_PLATFORMS,
+  DELETE_VIDEOGAME
 } from '../actions/types'
 
 const initialState = {
@@ -104,6 +105,10 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         detail: payload
       }
+      case DELETE_VIDEOGAME:
+        return {
+          ...state
+        }
     default:
       return state
   }

@@ -18,7 +18,7 @@ export function validate (videogame) {
   }
 
   if (!imgRegex.test(videogame.image)) {
-    errors.image = 'Please insert a valid image URL'
+    errors.image = 'Please insert a valid image URL'    
   }
 
   if (!regexRating.test(videogame.rating)) {

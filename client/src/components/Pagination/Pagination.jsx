@@ -1,6 +1,7 @@
 import styles from './Pagination.module.css'
 
-export default function Pagination ({ videogamesPerPage, videogamesToShow, pagination }) {
+export default function Pagination ({ videogamesPerPage, videogamesToShow, pagination, setCurrentPage, currentPage }) {
+   
   const pageNumbers = []
 
   for (let i = 1; i <= Math.ceil(videogamesToShow / videogamesPerPage); i++) {
@@ -10,7 +11,10 @@ export default function Pagination ({ videogamesPerPage, videogamesToShow, pagin
   return (
     <div>
       {pageNumbers.map(number => (
-        <button className={styles.botons} key={number} onClick={() => pagination(number)}>{number}</button>
+        <button className={`${styles.botons} ${currentPage === number ? styles.active : ''}`} key={number} onClick={() => {
+          setCurrentPage(number)
+          pagination(number)
+        }}>{number}</button>
       ))}
 
     </div>

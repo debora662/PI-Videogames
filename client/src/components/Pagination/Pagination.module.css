@@ -4,10 +4,17 @@
     margin-top: 20px;
     background-color: rgb(180, 247, 252);
     border-radius: 30px;
+    color: black;
+    text-shadow: 1px 0px 0px black;
 }
 
 .botons:hover{
     background-color: rgb(250, 253, 253);   
     border: 2px ridge rgb(4, 215, 252);
+    
+}
+
+.active {
+    background-color: rgb(117, 117, 243);
     
 }
